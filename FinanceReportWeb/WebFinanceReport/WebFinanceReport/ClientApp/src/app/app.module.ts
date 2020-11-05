@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataService } from './services/dataservice';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CommonModule } from '@angular/common';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent }
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

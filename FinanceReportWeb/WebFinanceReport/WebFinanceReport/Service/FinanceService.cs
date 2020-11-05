@@ -95,14 +95,16 @@ namespace WebFinanceReport.Service
             {
                 Connection.Open();
                 Command.Parameters.Clear();
-                Command.CommandText = $"SELECT name, price, buydate FROM item WHERE accountid = '{accountId}' ORDER BY buydate";
+                Command.CommandText = $"SELECT id, accountid, name, price, buydate FROM item WHERE accountid = '{accountId}' ORDER BY buydate";
                 DataReader = Command.ExecuteReader();
                 while (DataReader.Read())
                 {
                     novoItem = new Item();
-                    novoItem.Name = DataReader.GetString(0);
-                    novoItem.Price = DataReader.GetDouble(1);
-                    novoItem.BuyDate = DataReader.GetDateTime(2);
+                    novoItem.Id = DataReader.GetGuid(0);
+                    novoItem.AccountId = DataReader.GetGuid(1);
+                    novoItem.Name = DataReader.GetString(2);
+                    novoItem.Price = DataReader.GetDouble(3);
+                    novoItem.BuyDate = DataReader.GetDateTime(4);
                     items.Add(novoItem);
                 }
                 Connection.Close();

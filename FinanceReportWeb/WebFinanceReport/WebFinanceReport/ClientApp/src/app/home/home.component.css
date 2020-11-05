@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+  background-color: transparent;
+}
+
+td{
+  color: black;
+  font-size: large;
+}
+
+th{
+  color: black;
+  font-size: large;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}

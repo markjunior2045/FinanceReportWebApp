@@ -14,19 +14,34 @@ namespace WebFinanceReport.Controllers
     public class FinanceController : ControllerBase
     {
         FinanceService _financeService = new FinanceService();
+        private Guid _AccountId = Guid.Parse("692d431e-2507-4d9c-875d-b268ff136932");
 
         [HttpGet]
         [Route("BaseValues")]
         public IEnumerable<BaseValues> GetBaseValues(Guid accountId)
         {
-            accountId = Guid.Parse("692d431e-2507-4d9c-875d-b268ff136932");
+            accountId = _AccountId;
 
-            BaseValues[] bv = { _financeService.GetBaseValues(accountId) };
+            BaseValues[] baseValues = { _financeService.GetBaseValues(accountId) };
 
-            if (bv == null)
+            if (baseValues == null)
                 return null;
 
-            return bv.AsEnumerable();
+            return baseValues.AsEnumerable();
+        }
+
+        [HttpGet]
+        [Route("AllItems")]
+        public IEnumerable<Item> GetAllItems(Guid accountId)
+        {
+            accountId = _AccountId;
+
+            List<Item> items = _financeService.GetAllItems(accountId);
+
+            if (items == null)
+                return null;
+
+            return items.AsEnumerable();
         }
     }
 }
