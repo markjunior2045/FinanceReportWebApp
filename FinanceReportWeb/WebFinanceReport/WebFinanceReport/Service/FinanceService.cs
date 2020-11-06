@@ -64,14 +64,14 @@ namespace WebFinanceReport.Service
             }
         }
 
-        public bool DeleteItem(Item toDeleteItem)
+        public bool DeleteItem(Guid itemId)
         {
             try
             {
                 Connection.Open();
                 Command.Parameters.Clear();
                 Command.CommandText = "DELETE FROM item WHERE id = @id";
-                Command.Parameters.AddWithValue("@id", toDeleteItem.Id);
+                Command.Parameters.AddWithValue("@id", itemId);
                 Command.ExecuteNonQuery();
                 Connection.Close();
 
@@ -117,6 +117,36 @@ namespace WebFinanceReport.Service
             }
 
             return items;
+        }
+
+        public Item GetItemById(Guid itemId)
+        {
+            Item item = new Item();
+
+            try
+            {
+                Connection.Open();
+                Command.Parameters.Clear();
+                Command.CommandText = $"SELECT id, accountid, name, price, buydate FROM item WHERE id = '{itemId}'";
+                DataReader = Command.ExecuteReader();
+                while (DataReader.Read())
+                {
+                    item.Id = DataReader.GetGuid(0);
+                    item.AccountId = DataReader.GetGuid(1);
+                    item.Name = DataReader.GetString(2);
+                    item.Price = DataReader.GetDouble(3);
+                    item.BuyDate = DataReader.GetDateTime(4);
+                }
+                Connection.Close();
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error);
+                if (Connection.State == ConnectionState.Open)
+                    Connection.Close();
+            }
+
+            return item;
         }
 
         public bool SetNewAccountBaseValues(Guid accountId, double salary, double savePercentage)
