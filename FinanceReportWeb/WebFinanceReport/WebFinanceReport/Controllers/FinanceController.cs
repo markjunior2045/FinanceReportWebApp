@@ -69,5 +69,20 @@ namespace WebFinanceReport.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("AddItem")]
+        public IActionResult AddItem([FromBody]Item item)
+        {
+            if (item == null)
+                return BadRequest();
+
+            item.AccountId = _AccountId;
+            item.BuyDate = DateTime.Now;
+
+            _financeService.InsertItem(item);
+
+            return Ok();
+        }
     }
 }

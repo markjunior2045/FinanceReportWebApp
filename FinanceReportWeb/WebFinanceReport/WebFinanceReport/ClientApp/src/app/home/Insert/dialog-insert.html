@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Adicionar Item</h1>
+<div mat-dialog-content>
+  <form [formGroup]="itemForm">
+    <div style="display: flex;flex-direction: column;">
+      <mat-form-field>
+        <mat-label>Nome:</mat-label>
+        <input matInput type="text" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Price:</mat-label>
+        <input matInput type="number" min="0.01" step="any" formControlName="price" required>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: space-around;">
+  <button mat-button class="btn btn-primary" (click)="close()">Cancelar</button>
+  <button mat-button  class="btn btn-primary" (click)="save()"cdkFocusInitial>Adicionar</button>
+</div>

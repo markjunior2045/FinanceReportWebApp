@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -11,14 +11,18 @@ import { CounterComponent } from './counter/counter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataService } from './services/dataservice';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material';
+import { MatDialogModule, MatFormFieldModule, MatInputModule, MatTableModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
+import { DialogUpdate } from './home/Update/dialog-update';
+import { DialogInsert } from './home/Insert/dialog-insert';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent
+    CounterComponent,
+    DialogUpdate,
+    DialogInsert
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,9 +34,16 @@ import { MatTableModule } from '@angular/material';
       { path: 'counter', component: CounterComponent }
     ]),
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [DataService],
+  entryComponents:[DialogUpdate,DialogInsert],
+  providers: [DataService,
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
